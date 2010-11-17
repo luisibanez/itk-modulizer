@@ -1,4 +1,21 @@
 #!/bin/bash
+#==========================================================================
+#
+#   Copyright Insight Software Consortium
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#          http://www.apache.org/licenses/LICENSE-2.0.txt
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#
+#==========================================================================*/
 
 # Author: Xiaoxiao Liu (xiaoxiao.liu@kitware.com)
 # Date:11/11/2010
@@ -7,8 +24,8 @@
 # A manifest text file that lists all the files and their destinations is reuiqired to run the script.
 # By default, the manifest file is named as "Manifest.txt" in the  same directory of this script.
 
-# To run it, just type "./Modularization/MonolithicITKToModularITk.sh"  in your shell terminal from
-# ITK root directory.
+# To run it, just type "./MonolithicITKToModularITk.sh"  in your shell terminal from
+# the itk-modulizer root directory.
 
 echo "*************************************************************************"
 echo "WARNINGs! This modularization script is still in its experiemntal stage."
@@ -37,20 +54,25 @@ echo "Files will be moved to: $modularITKRoot"
 while read line
   do echo $line
 
-  #parse input and output
+  # parse input and output
   inputFile=$ITKRoot"/"$(echo "$line"| awk  '{print $1}')
-  echo "$inputFile"
+  echo "Input File : $inputFile"
   outputDir=$modularITKRoot"/"$(echo "$line"| awk  '{print $2"/"$3"/"$4}')
+  echo "Output Directory : $outputDir"
 
-  #make sure input file exists and output path exsits
-  if test -e "$inputFile";then
-    if test -d "$outputDir";then
-       mv  $inputFile  $outputDir
-    else
-      echo "create directory:$outputDir"
-      mkdir -p $outputDir
-      mv  $inputFile  $outputDir
-    fi
+  # make sure output path exists
+  if [ ! -d "$outputDir" ]
+    then
+    echo "create directory: $outputDir"
+    echo "create directory: $outputDir" >> ./createdDirectories.log
+    mkdir -p "$outputDir"
+  fi
+
+  # make sure input file exists
+  if [ -r "$inputFile" ]
+    then
+    mv  "$inputFile"  "$outputDir"
+    echo "moved $inputFile to $outputDir" >> ./movedFiles.log
   else #input file missing
     echo "$inputFile is missing" > ./missingFiles.log
   fi
@@ -58,4 +80,4 @@ while read line
 done < ./Manifest.txt
 
 # new added files? (residual files in the root)
-find  $ITKRoot/Code -type f  \( ! -iname ".*" \) -print > ./newFiles.log
+find  "$ITKRoot/Code" -type f  \( ! -iname ".*" \) -print > ./newFiles.log
