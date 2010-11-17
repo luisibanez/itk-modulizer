@@ -16,10 +16,6 @@
 #   limitations under the License.
 #
 #==========================================================================*/
-
-# Author: Xiaoxiao Liu (xiaoxiao.liu@kitware.com)
-# Date:11/11/2010
-
 # This script is used to move the files in the monolithic ITK into modules of the  modularized ITK.
 # A manifest text file that lists all the files and their destinations is reuiqired to run the script.
 # By default, the manifest file is named as "Manifest.txt" in the  same directory of this script.
@@ -39,10 +35,10 @@ echo "*************************************************************************"
 read -p "Is your current directoy the modulizer root directory (y/n)?"
 [ "$REPLY" == "n" ] && echo "please go to the modulizer root directory first"  && exit 1 || echo "good to go"
 
-echo "Please enter the path of the modular ITK directory (default is the current directory by pressing [ENTER] only):"
+echo "Please enter the path of the modular ITK directory (default is the current directory by pressing [ENTER] only) No "/" at the end, please:"
 read modularITKRoot
 
-echo "Please enter the path of the monolithic/original ITK directory and press [ENTER]):"
+echo "Please enter the path of the monolithic/original ITK directory and press [ENTER]) No \"/\" at the end, please:"
 read ITKRoot
 
 if [ "$modularITKRoot" == "" ];then
@@ -55,7 +51,7 @@ while read line
   do echo $line
 
   # parse input and output
-  inputFile=$ITKRoot"/"$(echo "$line"| awk  '{print $1}')
+    inputFile=$ITKRoot"/"$(echo "$line"| awk  '{print $1}')
   echo "Input File : $inputFile"
   outputDir=$modularITKRoot"/"$(echo "$line"| awk  '{print $2"/"$3"/"$4}')
   echo "Output Directory : $outputDir"
