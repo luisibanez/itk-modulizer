@@ -1,0 +1,8 @@
+itk-module-name
+
+Source/CMakeLists.txt:  LIST_OF_SOURCE_FILES  DEPENDENCY_LIBS
+Testing/CMakeLists.txt:  ITK_MODULE_TEST_NAME INPUT_DATA OUPUT_DAT
+
+
+
+

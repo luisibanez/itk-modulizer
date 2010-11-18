@@ -17,6 +17,25 @@
 #
 #
 #==========================================================================*/
+# This script is used to automate the modulization process. The following
+# steps  are included:
+# 1. Move the files in the monolithic ITK into modules of the modularized ITK.
+#    A manifest text file that lists all the files and their destinations is
+#    reuiqired to run the script.By default, the manifest file is named as
+#    "Manifest.txt" in the  same directory of this script.
+# 2. Create CMake Files and put them into modules.
+
+
+
+# To run it, type ./modulizer.py  ITK_PATH  ModularITK_PATH   from
+# the itk-modulizer root directory.
+
+print "*************************************************************************"
+print "WARNINGs! This modularization script is still in its experiemntal stage."
+print "Current ITK users should NOT run this script."
+print "*************************************************************************"
+
+
 import shutil
 import os.path
 import re
@@ -26,13 +45,13 @@ import stat
 
 
 if len(sys.argv) != 3:
-    print("USAGE:  {0} <Top of ITK tree>, <Top of ModularITK tree>".format(sys.argv[0]))
+    print("USAGE:  {0} [monolithic ITK PATH] [modular ITK PATH]".format(sys.argv[0]))
     sys.exit(-1)
 
 HeadOfITKTree = sys.argv[1];
 HeadOfModularITKTree = sys.argv[2];
 
-#copy the whole ITK tree over to a tempery dir
+# copy the whole ITK tree over to a tempery dir
 HeadOfTempTree ="./ITK"
 
 if os.path.isdir(HeadOfTempTree):
@@ -42,22 +61,22 @@ print ("start to copy"+HeadOfITKTree+"to ./ITK ...")
 shutil.copytree(HeadOfITKTree,HeadOfTempTree, ignore = shutil.ignore_patterns('.git','.git*'))
 print ("done copying")
 
-#clean up the dirs first
+# clean up the dirs first
 if os.path.isdir(HeadOfModularITKTree):
     shutil.rmtree(HeadOfModularITKTree)
 
-#read the manifest file
+
+# read the manifest file
 print ("moving files from ./ITK into modules")
 numOfMissingFiles = 0;
 missingf =  open('./missingFiles.log','w')
 for line in open("./Manifest.txt",'r'):
-
   # parse the string
   words = line.split()
   inputfile = HeadOfTempTree+'/'+words[0]
   outputPath=HeadOfModularITKTree+'/'+ words[1]+'/'+words[2]+'/'+words[3]
 
-  #creat the path
+  # creat the path
   if not os.path.isdir(outputPath):
    os.makedirs(outputPath)
 
@@ -97,3 +116,21 @@ for (basepath, children) in walktree(HeadOfTempTree,False):
      newf.write(os.path.join(basepath, child)+'\n')
 newf.close()
 print ("listed new files to ./newFiles.log")
+
+
+
+###########################################################################
+#copy License and notice file to the modules
+
+#replacing the variable names in template-module
+o = open( HeadOfModularITKTree+'/'+moduleName+'/CMakeLists.txt','w')
+for line in open('./template_module/CMakeLists.txt','r'):
+   line = line.replace('itk-module-name',moduleName)
+   o.write(line + '\n')
+o.close()
+
+
+
+
+
+
