@@ -42,6 +42,7 @@ import re
 import sys
 import os
 import stat
+import glob
 
 
 if len(sys.argv) != 3:
@@ -57,7 +58,7 @@ HeadOfTempTree ="./ITK"
 if os.path.isdir(HeadOfTempTree):
     shutil.rmtree(HeadOfTempTree)
 
-print ("start to copy"+HeadOfITKTree+"to ./ITK ...")
+print ("start to copy"+HeadOfITKTree+" to ./ITK ...")
 shutil.copytree(HeadOfITKTree,HeadOfTempTree, ignore = shutil.ignore_patterns('.git','.git*'))
 print ("done copying")
 
@@ -120,17 +121,43 @@ print ("listed new files to ./newFiles.log")
 
 
 ###########################################################################
-#copy License and notice file to the modules
+# put the files for modulues
+groupList =os.listdir(HeadOfModularITKTree);
+for groupName in groupList:
+    moduleList = os.listdir(HeadOfModularITKTree+'/'+groupName)
 
-#replacing the variable names in template-module
-o = open( HeadOfModularITKTree+'/'+moduleName+'/CMakeLists.txt','w')
-for line in open('./template_module/CMakeLists.txt','r'):
-   line = line.replace('itk-module-name',moduleName)
-   o.write(line + '\n')
-o.close()
+    for  moduleName in moduleList:
+         print ('creating files in {0}'.format(moduleName))
+         # cooy the LICENSE and NOTICE
+         shutil.copy('./template_module/LICENSE', HeadOfModularITKTree+'/'+groupName+'/'+moduleName)
+         shutil.copy('./template_module/NOTICE',  HeadOfModularITKTree+'/'+groupName+'/'+moduleName)
 
+         # write CMakeLists.txt
+         o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/CMakeLists.txt','w')
+         for line in open('./template_module/CMakeLists.txt','r'):
+             line = line.replace('@itk-module-name@',moduleName)
+             o.write(line);
+         o.close()
 
+         # write Source/CMakeLists.txt
+         # list of CXX files
+         cxxFiles = glob.glob(HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Source/*.cxx')
+         cxxFileList='';
+         for cxxf in cxxFiles:
+              cxxFileList = cxxFileList+cxxf.split('/')[-1]+'\n'
+         o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Source/CMakeLists.txt','w')
+         for line in open('./template_module/Source/CMakeLists.txt','r'):
+              line = line.replace('@itk-module-name@',moduleName)
+              line = line.replace('@LIST_OF_SOURCE_FILES@',cxxFileList)
+              o.write(line);
+         o.close()
 
+         # write Testing/CMakeLists.txt
+         #o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Testing/CMakeLists.txt','w')
+         #for line in open('./template_module/Testing/CMakeLists.txt','r'):
+         #     line = line.replace('@itk-module-name@',moduleName)
+         #     o.write(line);
+         #o.close()
 
 
 

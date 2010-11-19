@@ -3,10 +3,10 @@ get_filename_component (_dir  "${CMAKE_CURRENT_LIST_FILE}" PATH)
 get_filename_component(_prefix "${_dir}/../../.." ABSOLUTE)
 
 #import the targets
-if(NOT TARGET itk-module-name)
-  include("${_prefix}/@itk-module-name-targets-install@")
+if(NOT TARGET @itk-module-name@)
+  include("${_prefix}/@@itk-module-name@-targets-install@")
 endif()
 
-set(itk-module-name_INCLUDE_DIRS "${_prefix}/include/itk-module-name-@version@")
+set(@itk-module-name@_INCLUDE_DIRS "${_prefix}/include/@itk-module-name@-@version@")
 
 
