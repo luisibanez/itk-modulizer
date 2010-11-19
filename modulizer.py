@@ -148,7 +148,7 @@ for groupName in groupList:
          o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Source/CMakeLists.txt','w')
          for line in open('./template_module/Source/CMakeLists.txt','r'):
               line = line.replace('@itk-module-name@',moduleName)
-              line = line.replace('@LIST_OF_SOURCE_FILES@',cxxFileList)
+              line = line.replace('@LIST_OF_SOURCE_FILES@',cxxFileList[0:-1]) #get rid of the last \n
               o.write(line);
          o.close()
 

@@ -22,7 +22,7 @@ install(TARGETS @itk-module-name@
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib/@itk-module-name@-${version}
-  )
+ )
 
 export(TARGETS @itk-module-name@
   APPEND FILE ${@itk-module-name@-targets-build})
