@@ -31,7 +31,7 @@
 # the itk-modulizer root directory.
 
 print "*************************************************************************"
-print "WARNINGs! This modularization script is still in its experiemntal stage."
+print "WARNINGs! This modularization script is still in its experimental stage."
 print "Current ITK users should NOT run this script."
 print "*************************************************************************"
 
@@ -50,36 +50,47 @@ if len(sys.argv) != 3:
     sys.exit(-1)
 
 HeadOfITKTree = sys.argv[1];
+if (HeadOfITKTree[-1] == '/'):
+    HeadOfITKTree = HeadOfITKTree[0:-1]
+
 HeadOfModularITKTree = sys.argv[2];
+if (HeadOfModularITKTree[-1] ==  '/'):
+    HeadOfModularITKTree = HeadOfModularITKTree[0:-1]
 
 # copy the whole ITK tree over to a tempery dir
-HeadOfTempTree ="./ITK"
+HeadOfTempTree ="./ITK_remaining"
 
 if os.path.isdir(HeadOfTempTree):
     shutil.rmtree(HeadOfTempTree)
 
-print ("start to copy"+HeadOfITKTree+" to ./ITK ...")
+print("Start to copy" + HeadOfITKTree + " to  ./ITK_remianing ...")
 shutil.copytree(HeadOfITKTree,HeadOfTempTree, ignore = shutil.ignore_patterns('.git','.git*'))
-print ("done copying")
+print("Done copying!")
+
 
 # clean up the dirs first
 if os.path.isdir(HeadOfModularITKTree):
-    shutil.rmtree(HeadOfModularITKTree)
+    print("Warning: The direcotry {0} exsits! It needs to be wiped out first.".format(HeadOfModularITKTree))
+    answer = raw_input("Are you sure you want to clean up this directory?[y/n]" )
+    if (answer == 'y'):
+       shutil.rmtree(HeadOfModularITKTree)
+    else:
+       exit()
 
 
 # read the manifest file
-print ("moving files from ./ITK into modules")
+print ("moving files from ./ITK_remaining into modules in {0}".format(HeadOfModularITKTree))
 numOfMissingFiles = 0;
 missingf =  open('./missingFiles.log','w')
 for line in open("./Manifest.txt",'r'):
   # parse the string
   words = line.split()
   inputfile = HeadOfTempTree+'/'+words[0]
-  outputPath=HeadOfModularITKTree+'/'+ words[1]+'/'+words[2]+'/'+words[3]
+  outputPath = HeadOfModularITKTree+'/'+ words[1]+'/'+words[2]+'/'+words[3]
 
   # creat the path
   if not os.path.isdir(outputPath):
-   os.makedirs(outputPath)
+     os.makedirs(outputPath)
 
   # copying files to the destination
   if  os.path.isfile(inputfile):
@@ -127,7 +138,7 @@ for groupName in groupList:
     moduleList = os.listdir(HeadOfModularITKTree+'/'+groupName)
 
     for  moduleName in moduleList:
-         print ('creating files in {0}'.format(moduleName))
+         print ('creating cmake files in {0}'.format(moduleName))
          # cooy the LICENSE and NOTICE
          shutil.copy('./template_module/LICENSE', HeadOfModularITKTree+'/'+groupName+'/'+moduleName)
          shutil.copy('./template_module/NOTICE',  HeadOfModularITKTree+'/'+groupName+'/'+moduleName)
@@ -158,6 +169,5 @@ for groupName in groupList:
          #     line = line.replace('@itk-module-name@',moduleName)
          #     o.write(line);
          #o.close()
-
 
 
