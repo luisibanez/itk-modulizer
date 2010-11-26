@@ -17,11 +17,11 @@
 #
 #
 #==========================================================================*/
-# This script is used to automate the modulization process. The following
+# This script is used to automate the modularization process. The following
 # steps  are included:
 # 1. Move the files in the monolithic ITK into modules of the modularized ITK.
 #    A manifest text file that lists all the files and their destinations is
-#    reuiqired to run the script.By default, the manifest file is named as
+#    required to run the script.By default, the manifest file is named as
 #    "Manifest.txt" in the  same directory of this script.
 # 2. Create CMake Files and put them into modules.
 
@@ -63,15 +63,15 @@ HeadOfTempTree ="./ITK_remaining"
 if os.path.isdir(HeadOfTempTree):
     shutil.rmtree(HeadOfTempTree)
 
-print("Start to copy" + HeadOfITKTree + " to  ./ITK_remianing ...")
+print("Start to copy" + HeadOfITKTree + " to  ./ITK_remaining ...")
 shutil.copytree(HeadOfITKTree,HeadOfTempTree, ignore = shutil.ignore_patterns('.git','.git*'))
 print("Done copying!")
 
 
 # clean up the dirs first
 if os.path.isdir(HeadOfModularITKTree):
-    print("Warning: The direcotry {0} exsits! It needs to be wiped out first.".format(HeadOfModularITKTree))
-    answer = raw_input("Are you sure you want to clean up this directory?[y/n]" )
+    print("Warning: The directory {0} exists! It needs to be wiped out first.".format(HeadOfModularITKTree))
+    answer = raw_input("Are you sure you want to clean up this directory? [y/n]: " )
     if (answer == 'y'):
        shutil.rmtree(HeadOfModularITKTree)
     else:
