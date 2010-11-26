@@ -1,0 +1,68 @@
+<node id="ITK">
+  <node id="core:">
+    <node id="itk-common"></node>
+    <node id="itk-io-common"></node>
+    <node id="itk-path"></node>
+    <node id="itk-quad-edge-mesh"></node>
+    <node id="itk-spatial-objects"></node>
+  </node>
+  <node id="external:">
+    <node id="itk-deprecated"></node>
+  </node>
+  <node id="filtering:">
+    <node id="itk-anisotropic-smoothing"></node>
+    <node id="itk-anti-alias"></node>
+    <node id="itk-bias-correction"></node>
+    <node id="itk-distance-map"></node>
+    <node id="itk-edge-detection"></node>
+    <node id="itk-fft"></node>
+    <node id="itk-gradient"></node>
+    <node id="itk-intensity-mapping"></node>
+    <node id="itk-mathematical-morphology"></node>
+    <node id="itk-quad-edge-mesh-filtering"></node>
+    <node id="itk-resampling"></node>
+    <node id="itk-thresholding"></node>
+  </node>
+  <node id="io:">
+    <node id="itk-analyze"></node>
+    <node id="itk-biorad"></node>
+    <node id="itk-bmp"></node>
+    <node id="itk-gdcm"></node>
+    <node id="itk-ge"></node>
+    <node id="itk-gipl"></node>
+    <node id="itk-io-deprecated"></node>
+    <node id="itk-io-mesh"></node>
+    <node id="itk-io-spatialobjects"></node>
+    <node id="itk-io-transform"></node>
+    <node id="itk-io-vtk"></node>
+    <node id="itk-ipl"></node>
+    <node id="itk-jpeg"></node>
+    <node id="itk-lsm"></node>
+    <node id="itk-meta"></node>
+    <node id="itk-nifti"></node>
+    <node id="itk-nrrd"></node>
+    <node id="itk-png"></node>
+    <node id="itk-siemens"></node>
+    <node id="itk-stimulate"></node>
+    <node id="itk-tiff"></node>
+    <node id="itk-xml"></node>
+  </node>
+  <node id="numerics:">
+    <node id="itk-eigen"></node>
+    <node id="itk-fem"></node>
+    <node id="itk-neural-networks"></node>
+    <node id="itk-optimizers"></node>
+    <node id="itk-polynomials"></node>
+    <node id="itk-statistics"></node>
+  </node>
+  <node id="registration:">
+    <node id="itk-fem-registration"></node>
+    <node id="itk-registration-common"></node>
+  </node>
+  <node id="segmentation:">
+    <node id="itk-bio-cell"></node>
+    <node id="itk-blox"></node>
+    <node id="itk-level-sets"></node>
+    <node id="itk-watersheds"></node>
+  </node>
+</node>
