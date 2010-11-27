@@ -57,8 +57,9 @@ for line in open("./Manifest.txt",'r'):
   if destinationSubdir == 'Source':
     basepath, basefilename = os.path.split(inputfile)
     basename, extension = os.path.splitext(basefilename)
+    basenametest = basename+'Test'
     for testfilename in testFiles:
-      index = testfilename.find( basename )
+      index = testfilename.find( basenametest )
       if index != -1:
         testmanifest.write(testfilename+'\t'+group+'\t'+module+'\t'+'Testing'+'\n')
 
