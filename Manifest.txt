@@ -2033,3 +2033,7 @@
 ./Code/BasicFilters/itkShiftScaleInPlaceImageFilter.h	external	itk-deprecated	Source
 ./Code/BasicFilters/itkRelabelComponentImageFilter.h	segmentation	itk-connected-components	Source
 ./Code/BasicFilters/itkRelabelComponentImageFilter.txx	segmentation	itk-connected-components	Source
+./Code/Algorithms/itkMultiResolutionPyramidImageFilter.h	registration	itk-registration-common	Source
+./Code/Algorithms/itkMultiResolutionPyramidImageFilter.txx	registration	itk-registration-common	Source
+./Code/Algorithms/itkRecursiveMultiResolutionPyramidImageFilter.h	registration	itk-registration-common	Source
+./Code/Algorithms/itkRecursiveMultiResolutionPyramidImageFilter.txx	registration	itk-registration-common	Source
