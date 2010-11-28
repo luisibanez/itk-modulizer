@@ -85,12 +85,13 @@ for line in manifestlines:
           includedclass = searchresult.group()
           if not re.search('\+',includedclass):
             if not re.search('itksys',includedclass):
-              includebasename, includeextension = os.path.splitext(includedclass)
-              includemodule = moduletable.get(includebasename,'not-found')
-              if includemodule == 'not-found':
-                missingEntries.write(includedclass+' included from '+inputfile+'\n')
-              includesTable.write('\t<class id="'+includebasename+'" module="'+includemodule+'">\n')
-              includesTable.write('\t</class>\n')
+              if not re.search(basename,includedclass):
+                includebasename, includeextension = os.path.splitext(includedclass)
+                includemodule = moduletable.get(includebasename,'not-found')
+                if includemodule == 'not-found':
+                  missingEntries.write(includedclass+' included from '+inputfile+'\n')
+                includesTable.write('\t<class id="'+includebasename+'" module="'+includemodule+'">\n')
+                includesTable.write('\t</class>\n')
     includesTable.write('</class>\n')
 
 includesTable.close()
