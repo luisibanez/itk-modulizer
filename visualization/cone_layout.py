@@ -1,8 +1,7 @@
 from vtk import *
 
-
 reader = vtkXMLTreeReader()
-reader.SetFileName("itkmodules.xml")
+reader.SetFileName("itkModules.xml")
 
 view = vtkGraphLayoutView()
 view.AddRepresentationFromInputConnection(reader.GetOutputPort())
@@ -11,6 +10,7 @@ view.SetVertexLabelVisibility(True)
 view.SetVertexColorArrayName("vertex id")
 view.SetColorVertices(True)
 view.SetLayoutStrategyToCone()
+view.SetVertexLabelFontSize(20)
 view.SetInteractionModeTo3D() # Left mouse button causes 3D rotate instead of zoom
 
 theme = vtkViewTheme.CreateMellowTheme()
