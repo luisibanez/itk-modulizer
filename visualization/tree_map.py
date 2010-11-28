@@ -1,7 +1,7 @@
 from vtk import *
 
 reader = vtkXMLTreeReader()
-reader.SetFileName("itkmodules.xml")
+reader.SetFileName("itkModules.xml")
 reader.Update()
 
 numeric = vtkStringToNumeric()

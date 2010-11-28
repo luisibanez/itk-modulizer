@@ -1,7 +1,7 @@
 from vtk import *
 
 reader1 = vtkXMLTreeReader()
-reader1.SetFileName("itkmodules.xml")
+reader1.SetFileName("itkModules.xml")
 reader1.Update()
 
 view = vtkTreeMapView()
