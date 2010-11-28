@@ -1975,3 +1975,7 @@
 ./Code/BasicFilters/itkVotingBinaryHoleFillingImageFilter.txx	segmentation	itk-label-voting	Source
 ./Code/Algorithms/itkLabelVotingImageFilter.h	segmentation	itk-label-voting	Source
 ./Code/Algorithms/itkLabelVotingImageFilter.txx	segmentation	itk-label-voting	Source
+./Code/Common/itkCorrespondenceDataStructure.h	segmentation	itk-blox	Source
+./Code/Common/itkCorrespondenceDataStructure.txx	segmentation	itk-blox	Source
+./Code/Common/itkCorrespondingList.h	segmentation	itk-blox	Source
+./Code/Common/itkCorrespondingList.txx	segmentation	itk-blox	Source
