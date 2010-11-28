@@ -49,8 +49,25 @@ if (HeadOfModularITKTree[-1] ==  '/'):
 testFiles = glob.glob(HeadOfITKTree+'/Testing/Code/*/*.cxx')
 
 includesTable =  open('./itkIncludes.xml','w')
+missingEntries =  open('./missingIncludes.log','w')
 
-for line in open("./Manifest.txt",'r'):
+manifestfile = open("./Manifest.txt",'r')
+manifestlines = manifestfile.readlines()
+
+moduletable = {'classname':'modulename'}
+
+for line in manifestlines:
+  words = line.split()
+  inputfile = words[0]
+  group = words[1]
+  module = words[2]
+  destinationSubdir = words[3]
+  if destinationSubdir == 'Source':
+    basepath, basefilename = os.path.split(inputfile)
+    basename, extension = os.path.splitext(basefilename)
+    moduletable[basename] = module
+
+for line in manifestlines:
   words = line.split()
   inputfile = words[0]
   group = words[1]
@@ -63,13 +80,18 @@ for line in open("./Manifest.txt",'r'):
     fullinputfile = HeadOfITKTree+'/'+inputfile
     for codeline in open(fullinputfile,'r'):
       if codeline.find("#include") != -1:
-        searchresult = re.search('itk.*h',codeline)
+        searchresult = re.search('itk.*\.h',codeline)
         if searchresult:
           includedclass = searchresult.group()
           if not re.search('\+',includedclass):
-            includebasename, includeextension = os.path.splitext(includedclass)
-            includesTable.write('\t<class id="'+includebasename+'">\n')
-            includesTable.write('\t</class>\n')
+            if not re.search('itksys',includedclass):
+              includebasename, includeextension = os.path.splitext(includedclass)
+              includemodule = moduletable.get(includebasename,'not-found')
+              if includemodule == 'not-found':
+                missingEntries.write(includedclass+' included from '+inputfile+'\n')
+              includesTable.write('\t<class id="'+includebasename+'" module="'+includemodule+'">\n')
+              includesTable.write('\t</class>\n')
     includesTable.write('</class>\n')
 
 includesTable.close()
+missingEntries.close()
