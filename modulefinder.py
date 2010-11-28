@@ -56,6 +56,7 @@ classmoduletable = {'classname':'modulename'}
 modulegrouptable = {'modulename':'groupname'}
 groupnames = []
 
+modulesTable.write('<node id="Modular ITK">\n')
 
 #
 #  Harvest information from the Manifest.txt file
@@ -90,20 +91,22 @@ for line in manifestlines:
 #
 for groupname in groupnames:
   print groupname
-  modulesTable.write('<node id="'+groupname+'">\n')
+  modulesTable.write('\t<node id="'+groupname+'">\n')
 
   for modulename in modulegrouptable:
     if modulegrouptable[modulename] == groupname:
-      modulesTable.write('\t<node id="'+modulename+'">\n')
+      modulesTable.write('\t\t<node id="'+modulename+'">\n')
 
       for classname in classmoduletable:
         if classmoduletable[classname] == modulename:
-          modulesTable.write('\t\t<node id="'+classname+'">\n')
-          modulesTable.write('\t\t</node>\n')
+          modulesTable.write('\t\t\t<node id="'+classname+'">\n')
+          modulesTable.write('\t\t\t</node>\n')
 
-      modulesTable.write('\t</node>\n')
+      modulesTable.write('\t\t</node>\n')
 
-  modulesTable.write('</node>\n')
+  modulesTable.write('\t</node>\n')
+
+modulesTable.write('</node>\n')
 
 
 modulesTable.close()
