@@ -56,6 +56,11 @@ classmoduletable = {'classname':'modulename'}
 modulegrouptable = {'modulename':'groupname'}
 groupnames = []
 
+
+#
+#  Harvest information from the Manifest.txt file
+#  and populate internal tables.
+#
 for line in manifestlines:
   words = line.split()
   inputfile = words[0]
@@ -79,11 +84,27 @@ for line in manifestlines:
     if groupindex == -1:
       groupnames.append(group)
 
+#
+#  Iterate through the tables to generate hierarchical
+#  information and write it to a XML file.
+#
 for groupname in groupnames:
   print groupname
-  modulesTable.write('<node id="'+groupname+'>\n')
+  modulesTable.write('<node id="'+groupname+'">\n')
+
+  for modulename in modulegrouptable:
+    if modulegrouptable[modulename] == groupname:
+      modulesTable.write('\t<node id="'+modulename+'">\n')
+
+      for classname in classmoduletable:
+        if classmoduletable[classname] == modulename:
+          modulesTable.write('\t\t<node id="'+classname+'">\n')
+          modulesTable.write('\t\t</node>\n')
+
+      modulesTable.write('\t</node>\n')
+
   modulesTable.write('</node>\n')
+
 
 modulesTable.close()
 missingEntries.close()
-
