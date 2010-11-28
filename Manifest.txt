@@ -1880,6 +1880,14 @@
 ./Code/BasicFilters/itkParallelSparseFieldLevelSetImageFilter.txx	segmentation	itk-level-sets	Source
 ./Code/BasicFilters/itkSparseFieldFourthOrderLevelSetImageFilter.h	segmentation	itk-level-sets	Source
 ./Code/BasicFilters/itkSparseFieldFourthOrderLevelSetImageFilter.txx	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingUpwindGradientImageFilter.h	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingUpwindGradientImageFilter.txx	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingExtensionImageFilter.h	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingExtensionImageFilter.txx	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingImageFilter.h	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingImageFilter.txx	itk-level-sets	Source
+./Code/Algorithms/itkCollidingFrontsImageFilter.h	itk-level-sets	Source
+./Code/Algorithms/itkCollidingFrontsImageFilter.txx	itk-level-sets	Source
 ./Code/Algorithms/itkWatershedSegmentTree.txx	segmentation	itk-watersheds	Source
 ./Code/Algorithms/itkWatershedEquivalenceRelabeler.txx	segmentation	itk-watersheds	Source
 ./Code/Algorithms/itkWatershedEquivalenceRelabeler.h	segmentation	itk-watersheds	Source
