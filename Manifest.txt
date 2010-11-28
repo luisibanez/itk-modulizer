@@ -1156,6 +1156,7 @@
 ./Code/BasicFilters/itkExpNegativeImageFilter.h	filtering	itk-intensity-mapping	Source
 ./Code/BasicFilters/itkGradientToMagnitudeImageFilter.h	filtering	itk-intensity-mapping	Source
 ./Code/BasicFilters/itkIntensityWindowingImageFilter.h	filtering	itk-intensity-mapping	Source
+./Code/BasicFilters/itkIntensityWindowingImageFilter.txx	filtering	itk-intensity-mapping	Source
 ./Code/BasicFilters/itkInvertIntensityImageFilter.h	filtering	itk-intensity-mapping	Source
 ./Code/BasicFilters/itkJoinImageFilter.h	filtering	itk-intensity-mapping	Source
 ./Code/BasicFilters/itkJoinSeriesImageFilter.txx	filtering	itk-intensity-mapping	Source
@@ -1880,14 +1881,14 @@
 ./Code/BasicFilters/itkParallelSparseFieldLevelSetImageFilter.txx	segmentation	itk-level-sets	Source
 ./Code/BasicFilters/itkSparseFieldFourthOrderLevelSetImageFilter.h	segmentation	itk-level-sets	Source
 ./Code/BasicFilters/itkSparseFieldFourthOrderLevelSetImageFilter.txx	segmentation	itk-level-sets	Source
-./Code/Algorithms/itkFastMarchingUpwindGradientImageFilter.h	itk-level-sets	Source
-./Code/Algorithms/itkFastMarchingUpwindGradientImageFilter.txx	itk-level-sets	Source
-./Code/Algorithms/itkFastMarchingExtensionImageFilter.h	itk-level-sets	Source
-./Code/Algorithms/itkFastMarchingExtensionImageFilter.txx	itk-level-sets	Source
-./Code/Algorithms/itkFastMarchingImageFilter.h	itk-level-sets	Source
-./Code/Algorithms/itkFastMarchingImageFilter.txx	itk-level-sets	Source
-./Code/Algorithms/itkCollidingFrontsImageFilter.h	itk-level-sets	Source
-./Code/Algorithms/itkCollidingFrontsImageFilter.txx	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingUpwindGradientImageFilter.h	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingUpwindGradientImageFilter.txx	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingExtensionImageFilter.h	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingExtensionImageFilter.txx	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingImageFilter.h	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkFastMarchingImageFilter.txx	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkCollidingFrontsImageFilter.h	segmentation	itk-level-sets	Source
+./Code/Algorithms/itkCollidingFrontsImageFilter.txx	segmentation	itk-level-sets	Source
 ./Code/Algorithms/itkWatershedSegmentTree.txx	segmentation	itk-watersheds	Source
 ./Code/Algorithms/itkWatershedEquivalenceRelabeler.txx	segmentation	itk-watersheds	Source
 ./Code/Algorithms/itkWatershedEquivalenceRelabeler.h	segmentation	itk-watersheds	Source
