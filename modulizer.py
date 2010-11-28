@@ -85,6 +85,10 @@ missingf =  open('./missingFiles.log','w')
 for line in open("./Manifest.txt",'r'):
   # parse the string
   words = line.split()
+
+  if len(words) != 4:
+    print "Missing entries at: "+line
+
   inputfile = HeadOfTempTree+'/'+words[0]
   outputPath = HeadOfModularITKTree+'/'+ words[1]+'/'+words[2]+'/'+words[3]
 
