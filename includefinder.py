@@ -57,11 +57,19 @@ for line in open("./Manifest.txt",'r'):
   module = words[2]
   destinationSubdir = words[3]
   if destinationSubdir == 'Source':
+    basepath, basefilename = os.path.split(inputfile)
+    basename, extension = os.path.splitext(basefilename)
+    includesTable.write('<class id="'+basename+'" module="'+module+'">\n')
     fullinputfile = HeadOfITKTree+'/'+inputfile
     for codeline in open(fullinputfile,'r'):
       if codeline.find("#include") != -1:
         searchresult = re.search('itk.*h',codeline)
         if searchresult:
-          print searchresult.group()
+          includedclass = searchresult.group()
+          if not re.search('\+',includedclass):
+            includebasename, includeextension = os.path.splitext(includedclass)
+            includesTable.write('\t<class id="'+includebasename+'">\n')
+            includesTable.write('\t</class>\n')
+    includesTable.write('</class>\n')
 
 includesTable.close()
