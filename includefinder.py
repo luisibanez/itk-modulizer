@@ -48,7 +48,7 @@ if (HeadOfModularITKTree[-1] ==  '/'):
 
 testFiles = glob.glob(HeadOfITKTree+'/Testing/Code/*/*.cxx')
 
-includesTable =  open('./itkIncludes.xml','w')
+includesTable =  open('./visualization/itkIncludes.xml','w')
 missingEntries =  open('./missingIncludes.log','w')
 
 manifestfile = open("./Manifest.txt",'r')
