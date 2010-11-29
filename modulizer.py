@@ -107,33 +107,14 @@ missingf.close()
 print ("listed {0} missing files to ./missingFiles.log").format(numOfMissingFiles)
 
 
-# detect new files: what's left in HeadOfTempTree
-
-# go through the directory tree
-def walktree (top = ".", depthfirst = True):
-    names = os.listdir(top)
-    if not depthfirst:
-        yield top, names
-    for name in names:
-        try:
-            st = os.lstat(os.path.join(top, name))
-        except os.error:
-            continue
-        if stat.S_ISDIR(st.st_mode):
-            for (newtop, children) in walktree (os.path.join(top, name), depthfirst):
-                yield newtop, children
-    if depthfirst:
-        yield top, names
 
 # list the new files
 newf =  open('./newFiles.log','w')
-for (basepath, children) in walktree(HeadOfTempTree,False):
-    for child in children:
-     newf.write(os.path.join(basepath, child)+'\n')
+for (root, subDirs, files) in os.walk(HeadOfTempTree):
+   for afile in files:
+     newf.write(os.path.join(root, afile)+'\n')
 newf.close()
 print ("listed new files to ./newFiles.log")
-
-
 
 ###########################################################################
 # put the files for modulues
