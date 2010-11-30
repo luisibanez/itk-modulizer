@@ -1,6 +1,6 @@
 from vtk import *
 
-treeFileName = "itkModules.xml"
+treeFileName = "itkModulesNoGroups.xml"
 graphFileName = "itkIncludes.csv"
 
 reader1 = vtkXMLTreeReader()
