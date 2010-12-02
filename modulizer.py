@@ -118,22 +118,22 @@ print ("listed new files to ./newFiles.log")
 
 ###########################################################################
 # put the files for modulues
+print ('creating cmake files for each module (from the template module)')
 groupList =os.listdir(HeadOfModularITKTree);
 for groupName in groupList:
     moduleList = os.listdir(HeadOfModularITKTree+'/'+groupName)
-
     for  moduleName in moduleList:
-         print ('creating cmake files in {0}'.format(moduleName))
          # cooy the LICENSE and NOTICE
          shutil.copy('./template_module/LICENSE', HeadOfModularITKTree+'/'+groupName+'/'+moduleName)
          shutil.copy('./template_module/NOTICE',  HeadOfModularITKTree+'/'+groupName+'/'+moduleName)
 
          # write CMakeLists.txt
-         o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/CMakeLists.txt','w')
-         for line in open('./template_module/CMakeLists.txt','r'):
-             line = line.replace('@itk-module-name@',moduleName)
-             o.write(line);
-         o.close()
+         if os.path.isdir(HeadOfModularITKTree+'/'+groupName+'/'+moduleName):
+           o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/CMakeLists.txt','w')
+           for line in open('./template_module/CMakeLists.txt','r'):
+               line = line.replace('@itk-module-name@',moduleName)
+               o.write(line);
+           o.close()
 
          # write Source/CMakeLists.txt
          # list of CXX files
@@ -141,18 +141,20 @@ for groupName in groupList:
          cxxFileList='';
          for cxxf in cxxFiles:
               cxxFileList = cxxFileList+cxxf.split('/')[-1]+'\n'
-         o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Source/CMakeLists.txt','w')
-         for line in open('./template_module/Source/CMakeLists.txt','r'):
-              line = line.replace('@itk-module-name@',moduleName)
-              line = line.replace('@LIST_OF_SOURCE_FILES@',cxxFileList[0:-1]) #get rid of the last \n
-              o.write(line);
-         o.close()
+
+         if os.path.isdir(HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Source'):
+           o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Source/CMakeLists.txt','w')
+           for line in open('./template_module/Source/CMakeLists.txt','r'):
+                line = line.replace('@itk-module-name@',moduleName)
+                line = line.replace('@LIST_OF_SOURCE_FILES@',cxxFileList[0:-1]) #get rid of the last \n
+                o.write(line);
+           o.close()
 
          # write Testing/CMakeLists.txt
-         #o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Testing/CMakeLists.txt','w')
-         #for line in open('./template_module/Testing/CMakeLists.txt','r'):
-         #     line = line.replace('@itk-module-name@',moduleName)
-         #     o.write(line);
-         #o.close()
-
+         if os.path.isdir(HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Testing'):
+           o = open( HeadOfModularITKTree+'/'+groupName+'/'+moduleName+'/Testing/CMakeLists.txt','w')
+           for line in open('./template_module/Testing/CMakeLists.txt','r'):
+                line = line.replace('@itk-module-name@',moduleName)
+                o.write(line);
+           o.close()
 
