@@ -77,44 +77,48 @@ if os.path.isdir(HeadOfModularITKTree):
     else:
        exit()
 
+if not os.path.isdir('./logs'):
+  os.makedirs('./logs')
 
 # read the manifest file
 print ("moving files from ./ITK_remaining into modules in {0}".format(HeadOfModularITKTree))
 numOfMissingFiles = 0;
-missingf =  open('./missingFiles.log','w')
+missingf =  open('./logs/missingFiles.log','w')
 for line in open("./Manifest.txt",'r'):
-  # parse the string
-  words = line.split()
+  # skip the comments
+  if line[0] != '#':
+    # parse the string
+    words = line.split()
 
-  if len(words) != 4:
-    print "Missing entries at: "+line
+    if len(words) != 4:
+      print "Missing entries at: "+line
 
-  inputfile = HeadOfTempTree+'/'+words[0]
-  outputPath = HeadOfModularITKTree+'/'+ words[1]+'/'+words[2]+'/'+words[3]
+    inputfile = HeadOfTempTree+'/'+words[0]
+    outputPath = HeadOfModularITKTree+'/'+ words[1]+'/'+words[2]+'/'+words[3]
 
-  # creat the path
-  if not os.path.isdir(outputPath):
-     os.makedirs(outputPath)
+    # creat the path
+    if not os.path.isdir(outputPath):
+       os.makedirs(outputPath)
 
-  # copying files to the destination
-  if  os.path.isfile(inputfile):
-     shutil.move(inputfile, outputPath)
-  else:
-     missingf.write(inputfile+'\n')
-     numOfMissingFiles = numOfMissingFiles + 1;
+    # copying files to the destination
+    if  os.path.isfile(inputfile):
+       shutil.move(inputfile, outputPath)
+    else:
+       missingf.write(inputfile+'\n')
+       numOfMissingFiles = numOfMissingFiles + 1
 
 missingf.close()
-print ("listed {0} missing files to ./missingFiles.log").format(numOfMissingFiles)
+print ("listed {0} missing files to ./logs/missingFiles.log").format(numOfMissingFiles)
 
 
 
 # list the new files
-newf =  open('./newFiles.log','w')
+newf =  open('./logs/newFiles.log','w')
 for (root, subDirs, files) in os.walk(HeadOfTempTree):
    for afile in files:
      newf.write(os.path.join(root, afile)+'\n')
 newf.close()
-print ("listed new files to ./newFiles.log")
+print ("listed new files to ./logs/newFiles.log")
 
 ###########################################################################
 # put the files for modulues

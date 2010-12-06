@@ -33,8 +33,8 @@ import sys
 import os.path
 import re
 
-if len(sys.argv) != 3:
-    print("USAGE:  {0} [monolithic ITK PATH] [modular ITK PATH]".format(sys.argv[0]))
+if len(sys.argv) != 2:
+    print("USAGE:  {0} [monolithic ITK PATH] ".format(sys.argv[0]))
     sys.exit(-1)
 
 
@@ -42,16 +42,13 @@ HeadOfITKTree = sys.argv[1];
 if (HeadOfITKTree[-1] == '/'):
     HeadOfITKTree = HeadOfITKTree[0:-1]
 
-HeadOfModularITKTree = sys.argv[2];
-if (HeadOfModularITKTree[-1] ==  '/'):
-    HeadOfModularITKTree = HeadOfModularITKTree[0:-1]
-
 testFiles = glob.glob(HeadOfITKTree+'/Testing/Code/*/*.cxx')
 
-includesTable =  open('./visualization/itkIncludes.xml','w')
+includesTable =  open('./itkIncludes.xml','w')
 missingEntries =  open('./missingIncludes.log','w')
+print('created ./itkIncludes.xml   and    ./missingIncludes.log' )
 
-manifestfile = open("./Manifest.txt",'r')
+manifestfile = open("../Manifest.txt",'r')
 manifestlines = manifestfile.readlines()
 
 moduletable = {'classname':'modulename'}

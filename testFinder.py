@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python 
 #==========================================================================
 #
 #   Copyright Insight Software Consortium
@@ -21,7 +21,7 @@
 # in the Manifest.txt file.
 
 #
-# To run it, type ./testfinder.py   ITK_SOURCE_TREE
+# io run it, type ./testfinder.py   ITK_SOURCE_TREE
 #
 # from the directory where the Manifest.txt file is.
 # an output file called ManifestTests.txt will be generated.
@@ -31,8 +31,8 @@ import glob
 import sys
 import os.path
 
-if len(sys.argv) != 3:
-    print("USAGE:  {0} [monolithic ITK PATH] [modular ITK PATH]".format(sys.argv[0]))
+if len(sys.argv) != 2:
+    print("USAGE:  {0} [monolithic ITK PATH] ".format(sys.argv[0]))
     sys.exit(-1)
 
 
@@ -40,13 +40,13 @@ HeadOfITKTree = sys.argv[1];
 if (HeadOfITKTree[-1] == '/'):
     HeadOfITKTree = HeadOfITKTree[0:-1]
 
-HeadOfModularITKTree = sys.argv[2];
-if (HeadOfModularITKTree[-1] ==  '/'):
-    HeadOfModularITKTree = HeadOfModularITKTree[0:-1]
 
 testFiles = glob.glob(HeadOfITKTree+'/Testing/Code/*/*.cxx')
 
-testmanifest =  open('./ManifestTests.txt','w')
+testmanifest =  open('./ManifestOfITKTests.txt','w')
+print('created ./ManifestOfITKTests.txt')
+
+testmanifest.write('# Testing code \n')
 
 for line in open("./Manifest.txt",'r'):
   words = line.split()
@@ -61,6 +61,7 @@ for line in open("./Manifest.txt",'r'):
     for testfilename in testFiles:
       index = testfilename.find( basenametest )
       if index != -1:
-        testmanifest.write(testfilename+'\t'+group+'\t'+module+'\t'+'Testing'+'\n')
+        testFileSplit=testfilename.split(HeadOfITKTree)
+        testmanifest.write('.'+testFileSplit[1]+'\t'+group+'\t'+module+'\t'+'Testing'+'\n')
 
 testmanifest.close()

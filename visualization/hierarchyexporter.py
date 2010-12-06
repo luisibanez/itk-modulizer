@@ -31,8 +31,8 @@ import sys
 import os.path
 import re
 
-if len(sys.argv) != 3:
-    print("USAGE:  {0} [monolithic ITK PATH] [modular ITK PATH]".format(sys.argv[0]))
+if len(sys.argv) != 2:
+    print("USAGE:  {0} [monolithic ITK PATH] ".format(sys.argv[0]))
     sys.exit(-1)
 
 
@@ -40,13 +40,9 @@ HeadOfITKTree = sys.argv[1];
 if (HeadOfITKTree[-1] == '/'):
     HeadOfITKTree = HeadOfITKTree[0:-1]
 
-HeadOfModularITKTree = sys.argv[2];
-if (HeadOfModularITKTree[-1] ==  '/'):
-    HeadOfModularITKTree = HeadOfModularITKTree[0:-1]
-
 testFiles = glob.glob(HeadOfITKTree+'/Testing/Code/*/*.cxx')
 
-modulesTable =  open('./visualization/itkModulesNoGroups.xml','w')
+modulesTable =  open('./visualization/itkModules.xml','w')
 missingEntries =  open('./missingIncludes.log','w')
 
 manifestfile = open("./Manifest.txt",'r')
@@ -85,30 +81,26 @@ for line in manifestlines:
     if groupindex == -1:
       groupnames.append(group)
 
-moduleId = 0
-
 #
 #  Iterate through the tables to generate hierarchical
 #  information and write it to a XML file.
 #
 for groupname in groupnames:
   print groupname
-#  modulesTable.write('\t<node id="'+groupname+'" name="'+groupname+'">\n')
+  modulesTable.write('\t<node id="'+groupname+'">\n')
 
   for modulename in modulegrouptable:
     if modulegrouptable[modulename] == groupname:
-      modulesTable.write('\t\t<node id="'+modulename+'" name="'+modulename+'" colorId="'+str(moduleId)+'">\n')
+      modulesTable.write('\t\t<node id="'+modulename+'">\n')
 
       for classname in classmoduletable:
         if classmoduletable[classname] == modulename:
-          modulesTable.write('\t\t\t<node id="'+classname+'" name="" colorId="'+str(moduleId)+'">\n')
+          modulesTable.write('\t\t\t<node id="'+classname+'">\n')
           modulesTable.write('\t\t\t</node>\n')
 
       modulesTable.write('\t\t</node>\n')
 
-    moduleId=moduleId+1
-
-#  modulesTable.write('\t</node>\n')
+  modulesTable.write('\t</node>\n')
 
 modulesTable.write('</node>\n')
 
