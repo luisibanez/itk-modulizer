@@ -1,0 +1,3 @@
+add_executable(itkTemplateModuleTest itkTemplateModuleTest.cxx)
+target_link_libraries(itkTemplateModuleTest itk-template-module)
+add_test(NAME itkTemplateModuleTest COMMAND itkTemplateModuleTest)

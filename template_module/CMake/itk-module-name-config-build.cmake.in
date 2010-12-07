@@ -1,7 +1,0 @@
-#import the targets
-if(NOT TARGET @itk-module-name@)
-  include("@@itk-module-name@-targets-build@")
-endif()
-
-#report other information
-set(@itk-module-name@_INCLUDE_DIRS "@@itk-module-name@_INCLUDE_DIRS@")
