@@ -45,7 +45,7 @@ import stat
 import glob
 
 
-if len(sys.argv) != 3:
+if len(sys.argv) < 3:
     print("USAGE:  {0} [monolithic ITK PATH] [modular ITK PATH]".format(sys.argv[0]))
     sys.exit(-1)
 
@@ -70,13 +70,17 @@ print("Done copying!")
 
 # clean up the dirs first
 if os.path.isdir(HeadOfModularITKTree):
-    print("Warning: The directory {0} exists! It needs to be wiped out first.".format(HeadOfModularITKTree))
-    answer = raw_input("Do you want to clean up this directory? [y/n]: " )
-    if (answer == 'y'):
+   if  (sys.argv[3] == 'y'):
+      answer = 'y'
+   else:
+      print("Warning: The directory {0} exists! It needs to be wiped out first.".format(HeadOfModularITKTree))
+      answer = raw_input("Do you want to clean up this directory? [y/n]: " )
+
+   if (answer == 'y'):
        shutil.rmtree(HeadOfModularITKTree)
        cmd ='git clone git@kwsource.kitwarein.com:itk/modularITK.git  '+HeadOfModularITKTree
        os.system(cmd)
-    else:
+   else:
        print('please choose another directory for modularized ITK')
        exit(-1)
 

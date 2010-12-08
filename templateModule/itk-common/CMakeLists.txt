@@ -10,6 +10,7 @@ include(CMakeBackwardCompatibilityC)
 include(CMakeBackwardCompatibilityCXX)
 
 configure_file(src/itkConfigure.h.in itkConfigure.h)
+configure_file(src/itkFloatingPointExceptionsConfigure.h.in  itkFloatingPointExceptionsConfigure.h)
 
 set(itk-common_INCLUDE_DIRS
   ${itk-common_BINARY_DIR}

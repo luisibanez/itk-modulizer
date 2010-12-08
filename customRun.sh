@@ -8,7 +8,8 @@
 # modify according to your paths
 ./modulizer.py    \
 /media/work/src/ITK    \
-/media/work/src/ModularITK/modularITK
+/media/work/src/ModularITK/modularITK  y
+
 
 
 #./testFinder.py    \
