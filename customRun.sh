@@ -17,22 +17,22 @@
 #cat ManifestOfITKTests.txt  >> Manifest.txt
 
 #dealing with itk-common
-./specialModuleFix.py
+./specialModuleFix.py  \
 /media/work/src/ITK    \
 /media/work/src/ModularITK/modularITK
 
 
 
 
-grep -v Wrapping logs/newFiles.log | \
-grep -v Utilities | \
-grep -v Validation | \
-grep -v Examples | \
-grep -v Testing | \
-grep -v Review | \
-grep -v CMake | \
-grep -v Documentation | \
-tee  logs/filesToClassify.log
+#grep -v Wrapping logs/newFiles.log | \
+#grep -v Utilities | \
+#grep -v Validation | \
+#grep -v Examples | \
+#grep -v Testing | \
+#grep -v Review | \
+#grep -v CMake | \
+#grep -v Documentation | \
+#tee  logs/filesToClassify.log
 
 wc Manifest.txt
 wc logs/filesToClassify.log

@@ -1,1 +1,1 @@
-itk_module(itk-template-module DEPENDS itk-common DEFAULT ON)
+itk_module(itk-template-module DEPENDS itk-common)

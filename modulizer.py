@@ -179,8 +179,12 @@ for  moduleName in moduleList:
      if os.path.isdir(HeadOfModularITKTree+'/'+moduleName+'/test'):
        o = open( HeadOfModularITKTree+'/'+moduleName+'/test/CMakeLists.txt','w')
        for line in open('./templateModule/itk-template-module/test/CMakeLists.txt','r'):
-            line = line.replace('itk-template-module',moduleName)
-            o.write(line);
+          words= moduleName.split('-')
+          moduleNameMod='';
+          for word in words:
+             moduleNameMod=moduleNameMod + word.capitalize()
+          line = line.replace('itkTemplateModule',moduleNameMod)
+          o.write(line);
        o.close()
 
     # write CTestConfig.cmake
