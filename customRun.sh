@@ -10,10 +10,19 @@
 /media/work/src/ITK    \
 /media/work/src/ModularITK/modularITK
 
-./testFinder.py    \
-/media/work/src/ITK
 
-cat ManifestOfITKTests.txt  >> Manifest.txt
+#./testFinder.py    \
+#/media/work/src/ITK
+
+#cat ManifestOfITKTests.txt  >> Manifest.txt
+
+#dealing with itk-common
+./specialModuleFix.py
+/media/work/src/ITK    \
+/media/work/src/ModularITK/modularITK
+
+
+
 
 grep -v Wrapping logs/newFiles.log | \
 grep -v Utilities | \

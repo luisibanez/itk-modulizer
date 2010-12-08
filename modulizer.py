@@ -71,11 +71,14 @@ print("Done copying!")
 # clean up the dirs first
 if os.path.isdir(HeadOfModularITKTree):
     print("Warning: The directory {0} exists! It needs to be wiped out first.".format(HeadOfModularITKTree))
-    answer = raw_input("Are you sure you want to clean up this directory? [y/n]: " )
+    answer = raw_input("Do you want to clean up this directory? [y/n]: " )
     if (answer == 'y'):
        shutil.rmtree(HeadOfModularITKTree)
        cmd ='git clone git@kwsource.kitwarein.com:itk/modularITK.git  '+HeadOfModularITKTree
        os.system(cmd)
+    else:
+       print('please choose another directory for modularized ITK')
+       exit(-1)
 
 if not os.path.isdir('./logs'):
   os.makedirs('./logs')
@@ -84,13 +87,14 @@ if not os.path.isdir('./logs'):
 print ("moving files from ./ITK_remaining into modules in {0}".format(HeadOfModularITKTree))
 numOfMissingFiles = 0;
 missingf =  open('./logs/missingFiles.log','w')
+moduleList=[];
 for line in open("./Manifest.txt",'r'):
   # skip the comments
   if line[0] != '#':
     # parse the string
     words = line.split()
     itkFileName = words[0]
-    groupName = words [1]
+    groupName = words[1]
     moduleName = words[2]
     subdirName = words[3]
 
@@ -99,10 +103,15 @@ for line in open("./Manifest.txt",'r'):
 
     inputfile = HeadOfTempTree+'/'+words[0]
     outputPath = HeadOfModularITKTree+'/'+ moduleName+'/'+subdirName
+    if len(moduleList) == 0:
+       moduleList.append(moduleName)
+    elif moduleName != moduleList[-1]:
+       moduleList.append(moduleName)
 
     # creat the path
     if not os.path.isdir(outputPath):
        os.makedirs(outputPath)
+
 
     # copying files to the destination
     if  os.path.isfile(inputfile):
@@ -114,6 +123,15 @@ for line in open("./Manifest.txt",'r'):
 missingf.close()
 print ("listed {0} missing files to ./logs/missingFiles.log").format(numOfMissingFiles)
 
+# find the unique module names
+def unique(seq):
+    # not order preserving
+    set = {}
+    map(set.__setitem__, seq, [])
+    return set.keys()
+
+
+moduleList = unique(moduleList)
 
 
 # list the new files
@@ -127,7 +145,7 @@ print ("listed new files to ./logs/newFiles.log")
 ###########################################################################
 # put the files for modulues
 print ('creating cmake files for each module (from the template module)')
-moduleList = os.listdir(HeadOfModularITKTree)
+#moduleList = os.listdir(HeadOfModularITKTree)
 for  moduleName in moduleList:
    if os.path.isdir(HeadOfModularITKTree+'/'+moduleName):
      # cooy the LICENSE and NOTICE
