@@ -32,7 +32,7 @@ for line in open("./Manifest.txt",'r'):
       words = line.split()
       if words[0][-2:] == '.h':
          words[3]='include'
-      if words[0][-2:] == '.txx':
+      if words[0][-4:] == '.txx':
          words[3]='include'
       line=words[0]+' '+words[1]+' '+words[2]+' '+words[3]+'\n'
   newManifest.write(line);
