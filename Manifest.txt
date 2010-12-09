@@ -52,7 +52,6 @@
 ./Code/Common/itkComplexToPhaseImageAdaptor.h core itk-common include
 ./Code/Common/itkComplexToRealImageAdaptor.h core itk-common include
 ./Code/Common/itkConceptChecking.h core itk-common include
-./Code/Common/itkConfigure.h.in core itk-common src
 ./Code/Common/itkConditionalConstIterator.h core itk-common include
 ./Code/Common/itkConditionalConstIterator.txx core itk-common include
 ./Code/Common/itkConicShellInteriorExteriorSpatialFunction.h core itk-common include
