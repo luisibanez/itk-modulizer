@@ -49,19 +49,20 @@ print('created ./ManifestOfITKTests.txt')
 testmanifest.write('# Testing code \n')
 
 for line in open("./Manifest.txt",'r'):
-  words = line.split()
-  inputfile = words[0]
-  group = words[1]
-  module = words[2]
-  destinationSubdir = words[3]
-  if destinationSubdir == 'Source':
-    basepath, basefilename = os.path.split(inputfile)
-    basename, extension = os.path.splitext(basefilename)
-    basenametest = basename+'Test'
-    for testfilename in testFiles:
-      index = testfilename.find( basenametest )
-      if index != -1:
-        testFileSplit=testfilename.split(HeadOfITKTree)
-        testmanifest.write('.'+testFileSplit[1]+'\t'+group+'\t'+module+'\t'+'Testing'+'\n')
+  if line[0]!='#':
+    words = line.split()
+    inputfile = words[0]
+    group = words[1]
+    module = words[2]
+    destinationSubdir = words[3]
+    if destinationSubdir == 'src':
+      basepath, basefilename = os.path.split(inputfile)
+      basename, extension = os.path.splitext(basefilename)
+      basenametest = basename+'Test'
+      for testfilename in testFiles:
+        index = testfilename.find( basenametest )
+        if index != -1:
+          testFileSplit=testfilename.split(HeadOfITKTree)
+          testmanifest.write('.'+testFileSplit[1]+'\t'+group+'\t'+module+'\t'+'test'+'\n')
 
 testmanifest.close()
