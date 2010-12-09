@@ -1599,7 +1599,7 @@
 ./Code/IO/itkImageIOFactory.h core itk-io-interface include
 ./Code/IO/itkImageIOFactory.h core itk-io-interface include
 ./Code/IO/itkImageIOFactory.cxx core itk-io-interface src
-./Code/IO/itkImageIOBase.h core itk-io-interface include
+./Code/IO/itkImageIOBase.h core itk-io-base include
 ./Code/IO/itkImageFileWriter.h core itk-io-interface include
 ./Code/IO/itkImageFileWriter.txx core itk-io-interface include
 ./Code/IO/itkImageSeriesWriter.h core itk-io-interface include
@@ -1695,7 +1695,7 @@
 ./Code/IO/itkBioRadImageIOFactory.h io itk-biorad include
 ./Code/IO/itkBioRadImageIO.h io itk-biorad include
 ./Code/IO/itkBioRadImageIOFactory.cxx io itk-biorad src
-./Code/IO/itkBioRadImageIOTest.cxx io itk-biorad src
+#./Code/IO/itkBioRadImageIOTest.cxx io itk-biorad src
 ./Code/IO/itkBioRadImageIO.cxx io itk-biorad src
 ./Code/IO/itkJPEGImageIOFactory.cxx io itk-jpeg src
 ./Code/IO/itkJPEGImageIOFactory.h io itk-jpeg include
@@ -2100,6 +2100,8 @@
 ./Code/BasicFilters/itkProjectionImageFilter.txx filtering itk-image-statistics include
 ./Code/BasicFilters/itkMedianProjectionImageFilter.h filtering itk-image-statistics include
 ./Code/BasicFilters/itkMaximumProjectionImageFilter.h filtering itk-image-statistics include
+# Utilities
+#
 # Testing code 
 ./Testing/Code/Common/itkBarrierTest.cxx	core	itk-common	test
 ./Testing/Code/Common/itkDirectoryTest.cxx	core	itk-common	test
