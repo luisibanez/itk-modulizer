@@ -1695,7 +1695,6 @@
 ./Code/IO/itkBioRadImageIOFactory.h io itk-io-biorad include
 ./Code/IO/itkBioRadImageIO.h io itk-io-biorad include
 ./Code/IO/itkBioRadImageIOFactory.cxx io itk-io-biorad src
-#./Code/IO/itkBioRadImageIOTest.cxx io itk-io-biorad src
 ./Code/IO/itkBioRadImageIO.cxx io itk-io-biorad src
 ./Code/IO/itkJPEGImageIOFactory.cxx io itk-io-jpeg src
 ./Code/IO/itkJPEGImageIOFactory.h io itk-io-jpeg include
