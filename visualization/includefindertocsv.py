@@ -49,55 +49,57 @@ includesTable =  open('./itkIncludes.csv','w')
 missingEntries =  open('./missingIncludes.log','w')
 print('created ./itkIncludes.cvs and ./missingIncludes.log')
 
-manifestfile = open("./Manifest.txt",'r')
+manifestfile = open(HeadOfITKTree+"/Modularization/Manifest.txt",'r')
 manifestlines = manifestfile.readlines()
 
 moduletable = {'classname':'modulename'}
 
 for line in manifestlines:
-  words = line.split()
-  inputfile = words[0]
-  group = words[1]
-  module = words[2]
-  destinationSubdir = words[3]
-  if destinationSubdir == 'Source':
-    basepath, basefilename = os.path.split(inputfile)
-    basename, extension = os.path.splitext(basefilename)
-    moduletable[basename] = module
+  if (line[0]!='#'):
+    words = line.split()
+    inputfile = words[0]
+    group = words[1]
+    module = words[2]
+    destinationSubdir = words[3]
+    if destinationSubdir == 'src':
+      basepath, basefilename = os.path.split(inputfile)
+      basename, extension = os.path.splitext(basefilename)
+      moduletable[basename] = module
 
 for line in manifestlines:
-  words = line.split()
-  inputfile = words[0]
-  group = words[1]
-  module = words[2]
-  destinationSubdir = words[3]
-  if destinationSubdir == 'Source':
-    basepath, basefilename = os.path.split(inputfile)
-    basename, extension = os.path.splitext(basefilename)
-#    includesTable.write('<class id="'+basename+'" module="'+module+'">\n')
-    basemodule = moduletable.get(basename,'not-found')
-    fullinputfile = HeadOfITKTree+'/'+inputfile
-    for codeline in open(fullinputfile,'r'):
-      if codeline.find("#include") != -1:
-        searchresult = re.search('itk.*\.h',codeline)
-        if searchresult:
-          includedclass = searchresult.group()
-          if not re.search('\+',includedclass):
-            if not re.search('itksys',includedclass):
-              if not re.search(basename,includedclass):
-                includebasename, includeextension = os.path.splitext(includedclass)
-                includemodule = moduletable.get(includebasename,'not-found')
+  if (line[0]!='#'):
+    words = line.split()
+    inputfile = words[0]
+    group = words[1]
+    module = words[2]
+    destinationSubdir = words[3]
+    if destinationSubdir == 'src':
+      basepath, basefilename = os.path.split(inputfile)
+      basename, extension = os.path.splitext(basefilename)
+  #    includesTable.write('<class id="'+basename+'" module="'+module+'">\n')
+      basemodule = moduletable.get(basename,'not-found')
+      fullinputfile = HeadOfITKTree+'/'+inputfile
+      for codeline in open(fullinputfile,'r'):
+        if codeline.find("#include") != -1:
+          searchresult = re.search('itk.*\.h',codeline)
+          if searchresult:
+            includedclass = searchresult.group()
+            if not re.search('\+',includedclass):
+              if not re.search('itksys',includedclass):
+                if not re.search(basename,includedclass):
+                  includebasename, includeextension = os.path.splitext(includedclass)
+                  includemodule = moduletable.get(includebasename,'not-found')
 
-                if includemodule == 'not-found':
-                  missingEntries.write(includedclass+' included from '+inputfile+'\n')
-                else:
-                  if includemodule != 'itk-common':
-                    if basemodule != includemodule:
-                      includesTable.write(basename+","+includebasename+'\n')
+                  if includemodule == 'not-found':
+                    missingEntries.write(includedclass+' included from '+inputfile+'\n')
+                  else:
+                    if includemodule != 'itk-common':
+                      if basemodule != includemodule:
+                        includesTable.write(basename+","+includebasename+'\n')
 
-#                includesTable.write('\t<class id="'+includebasename+'" module="'+includemodule+'">\n')
-#                includesTable.write('\t</class>\n')
-#    includesTable.write('</class>\n')
+  #                includesTable.write('\t<class id="'+includebasename+'" module="'+includemodule+'">\n')
+  #                includesTable.write('\t</class>\n')
+  #    includesTable.write('</class>\n')
 
 includesTable.close()
 missingEntries.close()

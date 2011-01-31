@@ -46,7 +46,7 @@ modulesTable =  open('./itkModulesNoGroups.xml','w')
 missingEntries =  open('./missingIncludes.log','w')
 print('create ./itkModulesNoGroups.xml and ./missingIncludes.log')
 
-manifestfile = open("../Manifest.txt",'r')
+manifestfile = open(HeadOfITKTree+"/Modularization/Manifest.txt",'r')
 manifestlines = manifestfile.readlines()
 
 classmoduletable = {'classname':'modulename'}
@@ -60,27 +60,28 @@ modulesTable.write('<node id="Modular ITK">\n')
 #  and populate internal tables.
 #
 for line in manifestlines:
-  words = line.split()
-  inputfile = words[0]
-  group = words[1]
-  module = words[2]
-  destinationSubdir = words[3]
-  if destinationSubdir == 'Source':
-    basepath, basefilename = os.path.split(inputfile)
-    basename, extension = os.path.splitext(basefilename)
-    classmoduletable[basename] = module
-    modulegroup = modulegrouptable.get(module,'not-found')
+  if (line[0] != "#"):
+    words = line.split()
+    inputfile = words[0]
+    group = words[1]
+    module = words[2]
+    destinationSubdir = words[3]
+    if destinationSubdir == 'src':
+      basepath, basefilename = os.path.split(inputfile)
+      basename, extension = os.path.splitext(basefilename)
+      classmoduletable[basename] = module
+      modulegroup = modulegrouptable.get(module,'not-found')
 
-    if modulegroup == 'not-found':
-      modulegrouptable[module] = group
+      if modulegroup == 'not-found':
+        modulegrouptable[module] = group
 
-    try:
-        groupindex = groupnames.index(group)
-    except ValueError:
-        groupindex = -1
+      try:
+          groupindex = groupnames.index(group)
+      except ValueError:
+          groupindex = -1
 
-    if groupindex == -1:
-      groupnames.append(group)
+      if groupindex == -1:
+        groupnames.append(group)
 
 moduleId = 0
 

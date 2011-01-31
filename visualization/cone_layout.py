@@ -1,7 +1,7 @@
 from vtk import *
 
 reader = vtkXMLTreeReader()
-reader.SetFileName("itkModules.xml")
+reader.SetFileName("itkModulesNoGroups.xml")
 
 view = vtkGraphLayoutView()
 view.AddRepresentationFromInputConnection(reader.GetOutputPort())

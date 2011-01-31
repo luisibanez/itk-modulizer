@@ -4,14 +4,15 @@
 
 export LD_LIBRARY_PATH=/media/work/bin/VTK/Release/bin
 HEADOfITKTree=/media/work/src/ITK
-HEADOfModularITKTree=/media/work/src/ModularITK/modularITK/
 
 
-./includefindertocvs.py $HEADOfITKTree
+./includefindertocsv.py $HEADOfITKTree
 #./includefinder.py $HEADOfITKTree
 
-./hierarchyexporternogroups.py $HEADOfITKTree 
+./hierarchyexporternogroups.py $HEADOfITKTree
 #./hierarchyexporter.py $HEADOfITKTree
+
+myPythonVTK=/media/work/bin/VTK/bin/vtkpython
 
 $myPythonVTK  cone_layout.py
 $myPythonVTK  hierarchical_graph2.py
