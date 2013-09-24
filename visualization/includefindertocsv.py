@@ -61,7 +61,7 @@ for line in manifestlines:
     group = words[1]
     module = words[2]
     destinationSubdir = words[3]
-    if destinationSubdir == 'src':
+    if destinationSubdir == 'src' or destinationSubdir == 'include':
       basepath, basefilename = os.path.split(inputfile)
       basename, extension = os.path.splitext(basefilename)
       moduletable[basename] = module
@@ -73,7 +73,7 @@ for line in manifestlines:
     group = words[1]
     module = words[2]
     destinationSubdir = words[3]
-    if destinationSubdir == 'src':
+    if destinationSubdir == 'src' or destinationSubdir == 'include':
       basepath, basefilename = os.path.split(inputfile)
       basename, extension = os.path.splitext(basefilename)
   #    includesTable.write('<class id="'+basename+'" module="'+module+'">\n')
